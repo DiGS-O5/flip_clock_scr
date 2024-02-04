@@ -82,7 +82,22 @@ namespace clock_scr.Properties {
                 this["offsetTF"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int dateIndication
+        {
+            get
+            {
+                return ((int)(this["dateIndication"]));
+            }
+            set
+            {
+                this["dateIndication"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
@@ -142,5 +157,7 @@ namespace clock_scr.Properties {
                 this["exitBit"] = value;
             }
         }
+        
+
     }
 }

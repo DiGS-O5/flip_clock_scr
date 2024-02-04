@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.Xml;
@@ -58,6 +59,7 @@ namespace clock_scr
         private double gradientBorder;
         private int timeFormat;
         private double offsetTF;
+        private int dateIndication;
         private string? displayColor;
         private string? backFrameColor;
 
@@ -276,6 +278,7 @@ namespace clock_scr
             gradientBorder = Properties.Settings.Default.gradientBorder;
             timeFormat = Properties.Settings.Default.timeFormat;
             offsetTF = Properties.Settings.Default.offsetTF;
+            dateIndication = Properties.Settings.Default.dateIndication;
             displayColor = Properties.Settings.Default.displayColor;
             backFrameColor = Properties.Settings.Default.backFrameColor;
 
@@ -358,7 +361,22 @@ namespace clock_scr
             {
                 TF = new Model3DGroup();
             }
-            
+
+            if (dateIndication != 0)
+            {
+                DI = CubeUtility.CreateFaceModel("-2,-1.2,0 -2,-2.2,0 1,-2.2,0 1,-1.2,0", nameof(DateIndication));
+            }
+            else
+            {
+                DI = new Model3DGroup();
+            }
+
+            CultureInfo englishCulture = new CultureInfo("en-US");
+            DateTime currentDate = DateTime.Now;
+
+            DateIndicationLeft.Text = currentDate.ToString("dd", englishCulture);
+            DateIndicationTop.Text = currentDate.ToString("dddd", englishCulture);
+            DateIndicationDown.Text = currentDate.ToString("MMMM yyyy", englishCulture);
             HrRightTop.Text = (currentHour % 10).ToString();
             HrRightBottom.Text = (currentHour % 10).ToString();
             HrLeftTop.Text = (currentHour >= 10 ? currentHour / 10 : 0).ToString();
@@ -391,12 +409,13 @@ namespace clock_scr
             clockTimer.Start();
         }
 
-        public void SetSettings(double offset1, double size, double border, int tf, double offset2, string color1, string color2){
+        public void SetSettings(double offset1, double size, double border, int tf, double offset2, int di, string color1, string color2){
             offsetHM = offset1;
             watchSize = size;
             gradientBorder = border;
             timeFormat = tf;
             offsetTF = offset2;
+            dateIndication = di;
             displayColor = color1;
             backFrameColor = color2;
         }

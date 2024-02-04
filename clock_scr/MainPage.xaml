@@ -87,7 +87,24 @@
                 <TextBlock x:Name="MinRightBottomNew" Style="{DynamicResource FaceStyleBottom}" Text="7" />
                 <TextBlock x:Name="TimeFormatAM" Style="{DynamicResource FaceStyleTF}" Text="AM" />
                 <TextBlock x:Name="TimeFormatPM" Style="{DynamicResource FaceStyleTF}" Text="PM" />
-
+                <TextBlock x:Name="DateIndication" Style="{DynamicResource FaceStyleTF}" Width="45" Height="15">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="2"/>
+                            <ColumnDefinition Width="28"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"  x:Name="DateIndicationLeft" VerticalAlignment="Center" Text="dd" FontSize="12" />
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="9"/>
+                                <RowDefinition Height="6"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" x:Name="DateIndicationTop" VerticalAlignment="Center" Text="dddd" TextAlignment="Left" FontSize="7" />
+                            <TextBlock Grid.Row="1" x:Name="DateIndicationDown" VerticalAlignment="Center" Text="MMMM yyyy" TextAlignment="Left" FontSize="4" />
+                        </Grid>
+                        </Grid>
+                </TextBlock>
             </Grid>
             <Viewport3D x:Name="viewport">
                 <Viewport3D.Camera>
@@ -115,7 +132,7 @@
                 <ModelVisual3D Content="{Binding MRTN, ElementName=window}" Transform="{Binding CubeTransform}"/>
                 <ModelVisual3D Content="{Binding MRBN, ElementName=window}" Transform="{Binding CubeTransform}"/>
                 <ModelVisual3D Content="{Binding TF, ElementName=window}" Transform="{Binding CubeTransform}"/>
-                
+                <ModelVisual3D Content="{Binding DI, ElementName=window}" Transform="{Binding CubeTransform}"/>
             </Viewport3D>
         </Grid>
     </Grid>

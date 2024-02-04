@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:clock_scr"
         mc:Ignorable="d"
-        Title="Settings" Height="450" Width="800">
+        Title="Settings" Height="520" Width="900">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FontSize" Value="16"/>
     </Style>
-        <Style TargetType="Slider">
+        <Style x:Key="SliderTF" TargetType="{x:Type Slider}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding SelectedIndex, ElementName=cmbTimeFormat}" Value="0">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -34,10 +34,11 @@
         </Grid>
         <Grid Background="#FFF8F8F8" Grid.Column="1" Width="300">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Height="364" Width="240" Margin="10" >
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Visible" >
+            <StackPanel  Width="240" Margin="10" >
                 <TextBlock FontSize="12" FontWeight="Bold" Text="Adjusts the hour and minute distance"/>
                 <Slider x:Name="sliderOffsetHM" TickPlacement="BottomRight" IsSnapToTickEnabled="True" Width="200" Foreground="Black" Minimum="0.0" Maximum="1.0" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.1" ValueChanged="SliderChanged"/>
                 <TextBlock FontSize="12" FontWeight="Bold" Text="Watch Size"/>
@@ -51,7 +52,12 @@
                     <ComboBoxItem Content="12-hour format 2"/>
                 </ComboBox>
                 <TextBlock FontSize="12" FontWeight="Bold" Text="Offset Time Format"/>
-                <Slider x:Name="sliderOffsetTF" TickPlacement="BottomRight" IsSnapToTickEnabled="True" Width="200" Foreground="Black" Minimum="0.0" Maximum="0.5" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" ValueChanged="SliderChanged"/>
+                    <Slider x:Name="sliderOffsetTF" Style="{DynamicResource SliderTF}" TickPlacement="BottomRight" IsSnapToTickEnabled="True" Width="200" Foreground="Black" Minimum="0.0" Maximum="0.5" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" ValueChanged="SliderChanged"/>
+                <TextBlock FontSize="12" FontWeight="Bold" Text="Date Indication"/>
+                    <ComboBox x:Name="cmbDateIndication" Margin="10,10,10,10" IsEditable="False" SelectionChanged="ComboBoxChanged">
+                    <ComboBoxItem Content="Date Indicate OFF"/>
+                    <ComboBoxItem Content="Date Indicate ON"/>
+                </ComboBox>
                 <TextBlock FontSize="12" FontWeight="Bold" Text="Display Color"/>
                 <local:WpfColorPicker x:Name="selectDisplayColor" Margin="10,0,10,0"/>
                 <TextBlock FontSize="12" FontWeight="Bold" Text="Back Frame Color"/>
@@ -61,6 +67,7 @@
                 <TextBlock FontSize="12" FontWeight="Bold" Text="Exit Settings"/>
                 <local:WpfExitSetting x:Name="exitSetting" Margin="10,0,10,0"/>
             </StackPanel>
+            </ScrollViewer>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
