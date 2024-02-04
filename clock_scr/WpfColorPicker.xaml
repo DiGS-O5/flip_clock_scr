@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="clock_scr.WpfColorPicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:clock_scr"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="200">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="SelectedBackgroundColor" Color="#FFBCDDEE" />
+        <SolidColorBrush x:Key="SelectedBorderBrushColor" Color="#FF7381F9" />
+        <SolidColorBrush x:Key="MouseOverBackgroundColor" Color="#FFE4F0FC" />
+        <SolidColorBrush x:Key="MouseOverBorderBrushColor" Color="#FF7EB4EA" />
+    </UserControl.Resources>
+    <Grid>
+        <ToggleButton x:Name="PART_ToggleButton">
+            <ToggleButton.Template>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SelectedBackgroundColor}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource SelectedBorderBrushColor}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource MouseOverBackgroundColor}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MouseOverBorderBrushColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ToggleButton.Template>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="4,1" HorizontalAlignment="Center" >
+                    <TextBlock Text="Color :" />
+                    <Border x:Name="selectedColor" CornerRadius="6" Background="Orange" Width="60" Margin="4,1" BorderBrush="Black" BorderThickness="1" />
+                </StackPanel>
+                <Grid x:Name="arrowGlyph" IsHitTestVisible="False" Margin="4,3,4,3" Grid.Column="1">
+                    <Path x:Name="Arrow" Width="7" Height="4" Data="M 0,1 C0,1 0,0 0,0 0,0 3,0 3,0 3,0 3,1 3,1 3,1 4,1 4,1 4,1 4,0 4,0 4,0 7,0 7,0 7,0 7,1 7,1 7,1 6,1 6,1 6,1 6,2 6,2 6,2 5,2 5,2 5,2 5,3 5,3 5,3 4,3 4,3 4,3 4,4 4,4 4,4 3,4 3,4 3,4 3,3 3,3 3,3 2,3 2,3 2,3 2,2 2,2 2,2 1,2 1,2 1,2 1,1 1,1 1,1 0,1 0,1 z" Fill="#FF000000" />
+                </Grid>
+            </Grid>
+        </ToggleButton>
+        <Popup HorizontalOffset="1"
+        PlacementTarget="{Binding ElementName=PART_ToggleButton}"
+        VerticalOffset="1"
+        AllowsTransparency="True"
+        StaysOpen="False"
+        Placement="Bottom"
+        Focusable="False"
+        Closed="Popup_Closed"
+        IsOpen="{Binding IsChecked, ElementName=PART_ToggleButton}">
+            <StackPanel Width="250">
+                <Border BorderBrush="Gray" BorderThickness="1" Background="#FFE8EBED">
+                    <TabControl>
+                        <TabItem Header="Standerd">
+                            <StackPanel Orientation="Vertical">
+                                <Border x:Name="selectingColorGray" CornerRadius="6" Background="Orange" Width="60" Height="10" Margin="4,1" BorderBrush="Black" BorderThickness="1" />
+                                <Grid HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Alpha : " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <Slider x:Name="sliderAlpha" Grid.Row="0" Grid.Column="1" IsSnapToTickEnabled="True" Foreground="Black" Minimum="0" Maximum="255" TickFrequency="1" SmallChange="1" LargeChange="10" ValueChanged="SliderGrayChanged"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding ElementName=sliderAlpha, Path=Value}" VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Gray Scale : " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <Slider x:Name="sliderGrayScale" Grid.Row="1" Grid.Column="1" IsSnapToTickEnabled="True" Foreground="Black" Minimum="0" Maximum="255" TickFrequency="1" SmallChange="1" LargeChange="10" ValueChanged="SliderGrayChanged"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding ElementName=sliderGrayScale, Path=Value}" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Button CommandParameter="gray" Content="OK" Click="Confirm_Click" />
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Advanced">
+                            <StackPanel Orientation="Vertical">
+                                <Border x:Name="selectingColorRGB" CornerRadius="6" Background="Orange" Width="60" Height="10" Margin="4,1" BorderBrush="Black" BorderThickness="1" />
+                                <Grid HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Alpha : " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <Slider x:Name="sliderA" Grid.Row="0" Grid.Column="1" IsSnapToTickEnabled="True" Foreground="Black" Minimum="0" Maximum="255" TickFrequency="1" SmallChange="1" LargeChange="10" ValueChanged="SliderRGBChanged"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding ElementName=sliderA, Path=Value}" VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Red : " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <Slider x:Name="sliderR" Grid.Row="1" Grid.Column="1" IsSnapToTickEnabled="True" Foreground="Black" Minimum="0" Maximum="255" TickFrequency="1" SmallChange="1" LargeChange="10" ValueChanged="SliderRGBChanged"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding ElementName=sliderR, Path=Value}" VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Green : " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <Slider x:Name="sliderG" Grid.Row="2" Grid.Column="1" IsSnapToTickEnabled="True" Foreground="Black" Minimum="0" Maximum="255" TickFrequency="1" SmallChange="1" LargeChange="10" ValueChanged="SliderRGBChanged"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding ElementName=sliderG, Path=Value}" VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Blue : " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <Slider x:Name="sliderB" Grid.Row="3" Grid.Column="1" IsSnapToTickEnabled="True" Foreground="Black" Minimum="0" Maximum="255" TickFrequency="1" SmallChange="1" LargeChange="10" ValueChanged="SliderRGBChanged"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding ElementName=sliderB, Path=Value}" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Button CommandParameter="rgb" Content="OK" Click="Confirm_Click" />
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                </Border>
+            </StackPanel>
+        </Popup>
+    </Grid>
+</UserControl>

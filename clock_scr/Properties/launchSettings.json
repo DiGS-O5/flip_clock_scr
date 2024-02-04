@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "clock_scr": {
+      "commandName": "Project",
+      "commandLineArgs": "/c\r\n"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+﻿<Page x:Name="window" x:Class="clock_scr.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:clock_scr"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPage">
+
+    <Page.Resources>
+        <Style x:Key="FaceStyleTop" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="0,4,0,0"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="HGP創英角ｺﾞｼｯｸUB"/>
+            <Setter Property="Background" Value="#FF222222"/>
+            <Setter Property="OpacityMask">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0.49" Color="Black"/>
+                        <GradientStop Offset="0.49" Color="Transparent"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FaceStyleBottom" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="0,4,0,0"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="HGP創英角ｺﾞｼｯｸUB"/>
+            <Setter Property="Background" Value="#FF222222"/>
+            <Setter Property="OpacityMask">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0.51" Color="Transparent"/>
+                        <GradientStop Offset="0.51" Color="Black"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FaceStyleTF" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="7.5"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="7.5"/>
+            <Setter Property="FontFamily" Value="HGP創英角ｺﾞｼｯｸUB"/>
+            <Setter Property="Background" Value="#FF222222"/>
+        </Style>
+    </Page.Resources>
+    <Page.DataContext>
+        <local:MainViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="DicePanel" Background="#000">
+            <Grid Visibility="Hidden">
+                <TextBlock x:Name="HrLeftTop" Style="{DynamicResource FaceStyleTop}" Text="0" />
+                <TextBlock x:Name="HrLeftBottom" Style="{DynamicResource FaceStyleBottom}" Text="0" />
+                <TextBlock x:Name="HrLeftTopNew" Style="{DynamicResource FaceStyleTop}" Text="4" />
+                <TextBlock x:Name="HrLeftBottomNew" Style="{DynamicResource FaceStyleBottom}" Text="4" />
+                <TextBlock x:Name="HrRightTop" Style="{DynamicResource FaceStyleTop}" Text="1" />
+                <TextBlock x:Name="HrRightBottom" Style="{DynamicResource FaceStyleBottom}" Text="1" />
+                <TextBlock x:Name="HrRightTopNew" Style="{DynamicResource FaceStyleTop}" Text="5" />
+                <TextBlock x:Name="HrRightBottomNew" Style="{DynamicResource FaceStyleBottom}" Text="5" />
+                <TextBlock x:Name="MinLeftTop" Style="{DynamicResource FaceStyleTop}" Text="2" />
+                <TextBlock x:Name="MinLeftBottom" Style="{DynamicResource FaceStyleBottom}" Text="2" />
+                <TextBlock x:Name="MinLeftTopNew" Style="{DynamicResource FaceStyleTop}" Text="6" />
+                <TextBlock x:Name="MinLeftBottomNew" Style="{DynamicResource FaceStyleBottom}" Text="6" />
+                <TextBlock x:Name="MinRightTop" Style="{DynamicResource FaceStyleTop}" Text="3" />
+                <TextBlock x:Name="MinRightBottom" Style="{DynamicResource FaceStyleBottom}" Text="3" />
+                <TextBlock x:Name="MinRightTopNew" Style="{DynamicResource FaceStyleTop}" Text="7" />
+                <TextBlock x:Name="MinRightBottomNew" Style="{DynamicResource FaceStyleBottom}" Text="7" />
+                <TextBlock x:Name="TimeFormatAM" Style="{DynamicResource FaceStyleTF}" Text="AM" />
+                <TextBlock x:Name="TimeFormatPM" Style="{DynamicResource FaceStyleTF}" Text="PM" />
+
+            </Grid>
+            <Viewport3D x:Name="viewport">
+                <Viewport3D.Camera>
+                    <PerspectiveCamera Position="0,0,10"/>
+                </Viewport3D.Camera>
+                <ModelVisual3D  x:Name="modelVisual3D">
+                    <ModelVisual3D.Content>
+                        <AmbientLight/>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <ModelVisual3D Content="{Binding HLT, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding HLB, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding HLTN, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding HLBN, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding HRT, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding HRB, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding HRTN, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding HRBN, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding MLT, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding MLB, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding MLTN, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding MLBN, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding MRT, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding MRB, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding MRTN, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding MRBN, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                <ModelVisual3D Content="{Binding TF, ElementName=window}" Transform="{Binding CubeTransform}"/>
+                
+            </Viewport3D>
+        </Grid>
+    </Grid>
+</Page>
