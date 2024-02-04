@@ -31,6 +31,7 @@ namespace clock_scr
             sliderGradientBorder.Value = Properties.Settings.Default.gradientBorder;
             cmbTimeFormat.SelectedIndex = Properties.Settings.Default.timeFormat;
             sliderOffsetTF.Value = Properties.Settings.Default.offsetTF;
+            cmbDateIndication.SelectedIndex = Properties.Settings.Default.dateIndication;
             selectDisplayColor.Color = Properties.Settings.Default.displayColor;
             selectBackFrameColor.Color = Properties.Settings.Default.backFrameColor;
             selectWindow.Value = Properties.Settings.Default.checkBit;
@@ -44,7 +45,7 @@ namespace clock_scr
             var mainPage = MainContentFrame.Content as MainPage;
             if (mainPage != null)
             {
-                mainPage.SetSettings(sliderOffsetHM.Value, sliderWatchSize.Value, sliderGradientBorder.Value, cmbTimeFormat.SelectedIndex, sliderOffsetTF.Value, selectDisplayColor.Color, selectBackFrameColor.Color);
+                mainPage.SetSettings(sliderOffsetHM.Value, sliderWatchSize.Value, sliderGradientBorder.Value, cmbTimeFormat.SelectedIndex, sliderOffsetTF.Value, cmbDateIndication.SelectedIndex, selectDisplayColor.Color, selectBackFrameColor.Color);
                 mainPage.InitializeWatch();
             }
         }
