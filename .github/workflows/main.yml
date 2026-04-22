@@ -34,7 +34,7 @@ jobs:
         run: msbuild clock_scr.sln /p:Configuration=Release /p:Platform="Any CPU"
 
       - name: Publish project
-        run: msbuild .\clock_scr\clock_scr.csproj /t:Publish /p:Configuration=Release /p:PublishDir="${{ github.workspace }}\publish\\"
+        run: msbuild .\clock_scr\clock_scr.csproj /t:Publish /p:PublishProfile=FolderProfile /p:PublishDir="${{ github.workspace }}\publish\\"
 
       - name: Show publish files
         shell: pwsh
