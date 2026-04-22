@@ -45,9 +45,9 @@ jobs:
       - name: Rename exe to Flip_Clock.scr
         shell: pwsh
         run: |
-          $exe = Get-ChildItem -Path .\publish -Filter clock_scr.exe -Recurse | Select-Object -First 1
+          $exe = Get-ChildItem -Path .\publish -Filter Flip_Clock.exe -Recurse | Select-Object -First 1
           if (-not $exe) {
-            throw "clock_scr.exe が見つかりませんでした"
+            throw "Flip_Clock.exe が見つかりませんでした"
           }
 
           $scrPath = Join-Path $exe.DirectoryName "Flip_Clock.scr"
@@ -62,21 +62,29 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path release_package | Out-Null
           New-Item -ItemType Directory -Force -Path release_package\source | Out-Null
-      
+
           $scr = Get-ChildItem -Path .\publish -Filter Flip_Clock.scr -Recurse | Select-Object -First 1
           if (-not $scr) {
             throw "Flip_Clock.scr が見つかりませんでした"
           }
-      
+
           Copy-Item -Path $scr.FullName -Destination .\release_package\Flip_Clock.scr -Force
-      
+
+          if (Test-Path .\LICENSE) {
+            Copy-Item -Path .\LICENSE -Destination .\release_package\LICENSE -Force
+          }
+
+          if (Test-Path .\README.md) {
+            Copy-Item -Path .\README.md -Destination .\release_package\README.md -Force
+          }
+
           robocopy . .\release_package\source /E /XD .git .github .vs bin obj publish release_package
-      
           if ($LASTEXITCODE -gt 7) {
             throw "ソースコードのコピーに失敗しました (robocopy exit code: $LASTEXITCODE)"
           }
 
           exit 0
+
       - name: Create zip
         shell: pwsh
         run: |
