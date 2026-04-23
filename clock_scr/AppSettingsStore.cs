@@ -19,7 +19,29 @@ namespace clock_scr
         {
             Directory.CreateDirectory(BaseDirectory);
 
-            string json = JsonSerializer.Serialize(Properties.Settings.Default, new JsonSerializerOptions
+            var data = new SettingsData
+            {
+                cameraDistance = Properties.Settings.Default.cameraDistance,
+                offsetHM = Properties.Settings.Default.offsetHM,
+                gradientBorder = Properties.Settings.Default.gradientBorder,
+                watchFontSize = Properties.Settings.Default.watchFontSize,
+                timeFormat = Properties.Settings.Default.timeFormat,
+                offsetTF = Properties.Settings.Default.offsetTF,
+                dateIndication = Properties.Settings.Default.dateIndication,
+                displayColor = Properties.Settings.Default.displayColor,
+                backFrameColor = Properties.Settings.Default.backFrameColor,
+                selectTimeFont = Properties.Settings.Default.selectTimeFont,
+                dateIndicationLanguage = Properties.Settings.Default.dateIndicationLanguage,
+                selectIndicationFont = Properties.Settings.Default.selectIndicationFont,
+                offsetDI = Properties.Settings.Default.offsetDI,
+                gradientBorderDI = Properties.Settings.Default.gradientBorderDI,
+                checkBit = Properties.Settings.Default.checkBit,
+                exitBit = Properties.Settings.Default.exitBit,
+                rotateAngel = Properties.Settings.Default.rotateAngel,
+                hideCursor = Properties.Settings.Default.hideCursor
+            };
+
+            string json = JsonSerializer.Serialize(data, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
