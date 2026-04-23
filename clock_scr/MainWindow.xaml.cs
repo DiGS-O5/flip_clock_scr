@@ -35,7 +35,7 @@ namespace clock_scr
         public MainWindow(int screenNumber)
         {
             InitializeComponent();
-            Properties.Settings.Default.Reload();
+            AppSettingsStore.Load();
 
             if (Properties.Settings.Default.hideCursor == 1)
             {

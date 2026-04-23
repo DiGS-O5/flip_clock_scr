@@ -331,7 +331,7 @@ namespace clock_scr
         }
         private void InitializeCustomSettings()
         {
-
+            AppSettingsStore.Load();
             cameraDistance = Properties.Settings.Default.cameraDistance;
             offsetHM = Properties.Settings.Default.offsetHM;
             gradientBorder = Properties.Settings.Default.gradientBorder;

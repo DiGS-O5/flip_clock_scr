@@ -52,6 +52,7 @@ namespace clock_scr
         public Settings()
         {
             InitializeComponent();
+            AppSettingsStore.Load();
             MainContentFrame.Content = new MainPage();
             cmbSelectTimeFont.ItemsSource = GetFontList();
             cmbSelectIndicationFont.ItemsSource = GetFontList();
@@ -147,7 +148,7 @@ namespace clock_scr
             if (mainPage != null)
             {
                 Properties.Settings.Default.rotateAngel = mainPage.GetMatrix();
-                Properties.Settings.Default.Save();
+                AppSettingsStore.Save();
             }
         }
 
@@ -180,7 +181,7 @@ namespace clock_scr
             Properties.Settings.Default.gradientBorderDI = sliderGradientBorderDI.Value;
             Properties.Settings.Default.offsetDI = sliderOffsetDI.Value;
             Properties.Settings.Default.hideCursor = cmbHideCursor.SelectedIndex;
-            Properties.Settings.Default.Save();
+            AppSettingsStore.Save();
         }
 
         void Reset_Click(object sender, RoutedEventArgs e)
